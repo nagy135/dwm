@@ -77,6 +77,8 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const char *browsercmd[]  = { "google-chrome-stable", NULL };
 static const char *brightness_up[]  = { "brightness_notification", "1", NULL };
 static const char *brightness_down[]  = { "brightness_notification", "-1", NULL };
+static const char *subtube_play[]  = { "subtube", "play", NULL };
+static const char *subtube_update[]  = { "subtube", "update", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -85,7 +87,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XF86XK_MonBrightnessUp,    spawn,          {.v = brightness_up } },
 	{ MODKEY,                       XF86XK_MonBrightnessDown,  spawn,          {.v = brightness_down } },
-	{ MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_y,      spawn,          {.v = subtube_play } },
+	{ MODKEY,                       XK_F5,     spawn,          {.v = subtube_update } },
     { MODKEY|ControlMask,           XK_Return, togglescratch,  {.ui = 0 } },
     { MODKEY|ShiftMask,             XK_Return, togglescratch,  {.ui = 1 } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
