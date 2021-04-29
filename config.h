@@ -19,6 +19,17 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_red   },
 };
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"alacritty", "-t", "spplain", "--class", "spplain", NULL };
+const char *spcmd2[] = {"alacritty", "-t", "sppython", "--class", "sppython", "-e", "python", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spplain",     spcmd1},
+	{"sppython",    spcmd2},
+};
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -29,8 +40,10 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+    { "Gimp",     NULL,       NULL,       0,            1,           -1 },
+    { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+    { NULL,       "spplain",  NULL,       SPTAG(0),     1,           -1 },
+    { NULL,       "sppython", NULL,       SPTAG(1),     1,           -1 },
 };
 
 /* layout(s) */
@@ -67,6 +80,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
+    { MODKEY|ControlMask,           XK_Return, togglescratch,  {.ui = 0 } },
+    { MODKEY|ShiftMask,             XK_Return, togglescratch,  {.ui = 1 } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
