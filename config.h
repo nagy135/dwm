@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
@@ -74,11 +75,16 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "rofi", "-show", "run", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *browsercmd[]  = { "google-chrome-stable", NULL };
+static const char *brightness_up[]  = { "brightness_notification", "1", NULL };
+static const char *brightness_down[]  = { "brightness_notification", "-1", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XF86XK_MonBrightnessUp,    spawn,          {.v = brightness_up } },
+	{ MODKEY,                       XF86XK_MonBrightnessDown,  spawn,          {.v = brightness_down } },
 	{ MODKEY,                       XK_c,      spawn,          {.v = browsercmd } },
     { MODKEY|ControlMask,           XK_Return, togglescratch,  {.ui = 0 } },
     { MODKEY|ShiftMask,             XK_Return, togglescratch,  {.ui = 1 } },
